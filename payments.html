@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenView — Bitcoin Order</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background:#050505; }
+        .card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); }
+        .glow-green { box-shadow:0 0 20px rgba(34,197,94,.25); }
+    </style>
+</head>
+
+<body class="text-gray-200 font-sans">
+
+<!-- NAV -->
+<nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+    <div class="text-2xl font-bold text-white">GREENVIEW</div>
+</nav>
+
+<!-- MAIN -->
+<main class="max-w-xl mx-auto px-6 py-16">
+
+    <div class="card rounded-2xl p-8">
+
+        <h1 class="text-3xl font-bold text-white mb-2">Place Your Order</h1>
+        <p class="text-gray-400 mb-8">Pay securely with Bitcoin</p>
+
+        <!-- ORDER FORM -->
+        <div class="space-y-5">
+
+            <div>
+                <label class="text-sm text-gray-400">Service</label>
+                <select id="service" class="w-full mt-1 bg-black border border-white/10 rounded-lg px-4 py-3">
+                    <option>YouTube Views</option>
+                    <option>YouTube Likes</option>
+                    <option>YouTube Subscribers</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-sm text-gray-400">YouTube Link</label>
+                <input id="link" type="text" placeholder="https://youtube.com/..."
+                    class="w-full mt-1 bg-black border border-white/10 rounded-lg px-4 py-3">
+            </div>
+
+            <div>
+                <label class="text-sm text-gray-400">Quantity</label>
+                <input id="qty" type="number" value="1000"
+                    class="w-full mt-1 bg-black border border-white/10 rounded-lg px-4 py-3">
+            </div>
+
+        </div>
+
+        <!-- PAYMENT BOX -->
+        <div class="mt-8 p-6 rounded-xl border border-green-500/30 bg-green-500/5">
+
+            <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="wallet" class="w-5 h-5 text-green-500"></i>
+                <span class="font-semibold text-white">Send Bitcoin To</span>
+            </div>
+
+            <div id="btcAddress" class="text-green-400 text-sm break-all font-mono mb-4">
+                bc1qt79qgwl70amqkwac93gcjhm5pj9z93mxs5s469
+            </div>
+
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=bc1qt79qgwl70amqkwac93gcjhm5pj9z93mxs5s469"
+                class="mx-auto rounded-lg mb-4"
+            >
+
+            <p class="text-xs text-gray-400 text-center">
+                Send the exact amount shown. Payments are verified manually.
+            </p>
+        </div>
+
+        <!-- TXID -->
+        <div class="mt-6">
+            <label class="text-sm text-gray-400">Transaction ID (TXID)</label>
+            <input id="txid" placeholder="Paste your Bitcoin transaction hash"
+                class="w-full mt-1 bg-black border border-white/10 rounded-lg px-4 py-3 text-sm">
+        </div>
+
+        <!-- SUBMIT -->
+        <button onclick="submitOrder()"
+            class="w-full mt-8 bg-green-600 hover:bg-green-500 text-white py-4 rounded-xl font-bold glow-green">
+            I've Sent Payment
+        </button>
+
+        <p id="status" class="text-center text-sm text-gray-400 mt-4"></p>
+
+    </div>
+
+</main>
+
+<script>
+    lucide.createIcons();
+
+    function submitOrder() {
+        const link = document.getElementById("link").value;
+        const txid = document.getElementById("txid").value;
+
+        if (!link || !txid) {
+            alert("Please complete all fields and provide your TXID.");
+            return;
+        }
+
+        document.getElementById("status").textContent =
+            "Order received. Payment will be verified shortly.";
+    }
+</script>
+
+</body>
+</html>
